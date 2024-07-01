@@ -106,7 +106,24 @@ SELECT e.name, e.surname, s.salary_amount
 FROM employee e 
 JOIN salary s ON e.employee_id = s.employee_id;
 
---Select all HODs and their salaries (include job_position and department)
+/*
++--------+---------+---------------+
+| name   | surname | salary_amount |
++--------+---------+---------------+
+| Jan    | Geci    |       1800.00 |
+| Darko  | Sever   |       5000.00 |
+| Mia    | Vuk     |       2000.00 |
+| Marija | Juric   |       1500.00 |
+| Ivan   | Horvat  |       1700.00 |
+| Jasna  | Zlatic  |       1200.00 |
+| Sergej | Pitner  |       1300.00 |
+| Leon   | Slatki  |       1200.00 |
+| Dijana | Babic   |       1600.00 |
+| Dino   | Matic   |       1600.00 |
++--------+---------+---------------+
+*/
+
+-- Select all HODs and their salaries (include job_position and department) / additional query for HODs
 
 SELECT e.name, e.surname, jp.job_title, s.salary_amount
 FROM employee e
@@ -114,6 +131,17 @@ JOIN salary s ON e.employee_id = s.employee_id
 JOIN employee_department ed ON e.employee_id = ed.employee_id
 JOIN job_position jp ON ed.job_position_id = jp.job_position_id
 WHERE jp.job_title = 'HOD';
+
+/*
++--------+---------+-----------+---------------+
+| name   | surname | job_title | salary_amount |
++--------+---------+-----------+---------------+
+| Sergej | Pitner  | HOD       |       1300.00 |
+| Leon   | Slatki  | HOD       |       1200.00 |
+| Dijana | Babic   | HOD       |       1600.00 |
+| Dino   | Matic   | HOD       |       1600.00 |
++--------+---------+-----------+---------------+
+*/
 
 --Select all HODs and calculate average of their salaries
 
@@ -126,24 +154,13 @@ WHERE employee_id IN (
     WHERE job_position.job_title = 'HOD'
 );
 
--- Select all HODs and calculate the average of their salaries
-
-DELIMITER $$
-
-CREATE PROCEDURE average_HOD_salary()
-BEGIN
-SELECT FORMAT(AVG(salary_amount), 2) as average_HOD_salary
-FROM salary
-WHERE employee_id IN (
-    SELECT employee_id
-    FROM employee_department
-    JOIN job_position ON employee_department.job_position_id = job_position.job_position_id
-    WHERE job_position.job_title = 'HOD');
-END $$
-
-DELIMITER ;
-
-CALL average_HOD_salary();
+/*
++--------------------+
+| average_HOD_salary |
++--------------------+
+| 1,425.00           |
++--------------------+
+*/
 
 -- Create procedure that will calculate average of all salaries (all employees)
 
@@ -159,5 +176,10 @@ DELIMITER ;
 
 CALL employees_average_salary();
 
-
-
+/*
++----------------+
+| average_salary |
++----------------+
+| 1,890.00       |
++----------------+
+*/
