@@ -59,7 +59,8 @@ CREATE TABLE IF NOT EXISTS posudba (
     datum_posudbe DATE NOT NULL,
     datum_povrata DATE,
     clan_id INT UNSIGNED NOT NULL,
-    FOREIGN KEY (clan_id) REFERENCES clanovi(id)
+    FOREIGN KEY (clan_id) REFERENCES clanovi(id),
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 )ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS posudba_kopija (
@@ -91,21 +92,43 @@ INSERT INTO filmovi (naslov, godina, zanr_id, cjenik_id) VALUES
 ('Kum', '1972', 3, 2),
 ('Ralje', '1975', 4, 2),
 ('Titanic', '1997', 5, 3),
-('Matrix', '1999', 1, 1);
+('Matrix', '1999', 1, 1),
+('Deadpool 2', '2018', 2, 2);
 
 INSERT INTO kopija (barcode, dostupan, film_id, medij_id)
 VALUES 
 ('INCEPTDVD', TRUE, 1, 1),
 ('INCEPTDVD', TRUE, 1, 1),
 ('INCEPTDVD', TRUE, 1, 1),
-('INCEPTBLURAY', TRUE, 1, 2),
+('INCEPTBLURAY', FALSE, 1, 2),
 ('INCEPTBLURAY', TRUE, 1, 2),
 ('INCEPTVHS', TRUE, 1, 3),
 ('INCEPTVHS', TRUE, 1, 3),
 ('KUMDVD', TRUE, 2, 1),
 ('KUMDVD', TRUE, 2, 1),
+('KUMBLURAY', FALSE, 2, 2),
 ('KUMBLURAY', TRUE, 2, 2),
-('KUMBLURAY', TRUE, 2, 2);
+('RALJEDVD', TRUE, 3, 1),
+('RALJEBR', TRUE, 3, 2),
+('RALJEBR', TRUE, 3, 2),
+('RALJEVHS', TRUE, 3, 3),
+('RALJEVHS', TRUE, 3, 3),
+('RALJEVHS', TRUE, 3, 3),
+('TITANICDVD', TRUE, 4, 1),
+('TITANICDVD', TRUE, 4, 1),
+('TITANICDVD', FALSE, 4, 1),
+('TITANICDVD', FALSE, 4, 1),
+('TITANICBR', TRUE, 4, 2),
+('TITANICBR', TRUE, 4, 2),
+('MATRIXDVD', TRUE, 5, 1),
+('MATRIXDVD', TRUE, 5, 1),
+('MATRIXBR', TRUE, 5, 2),
+('DEAD2DVD', TRUE, 6, 1),
+('DEAD2DVD', FALSE, 6, 1),
+('DEAD2DVD', FALSE, 6, 1),
+('DEAD2DVD', TRUE, 6, 1),
+('DEAD2BLURAY', TRUE, 6, 2),
+('DEAD2BLURAY', TRUE, 6, 2);
 
 INSERT INTO clanovi (ime, adresa, telefon, email, clanski_broj) VALUES 
 ('Ivan Horvat', 'Ulica Kralja Zvonimira 10', '0912345678', 'ivan.horvat@example.com', 'CLAN12345'),
@@ -122,6 +145,8 @@ INSERT INTO posudba (datum_posudbe, datum_povrata, clan_id) VALUES
 INSERT INTO posudba_kopija (posudba_id, kopija_id)
 VALUES 
 (1, 1),
-(1, 3),
+(1, 12),
 (2, 6),
-(2, 8);
+(2, 15),
+(3, 4),
+(4, 11);

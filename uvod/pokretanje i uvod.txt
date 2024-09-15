@@ -1,0 +1,24 @@
+mysql -u root -p
+sifra: root
+
+izlistaj sve baze podataka 
+SHOW DATABASES;
+
+MySql - relacijaska baza podataka
+
+SQL -> structured query language
+
+SQL entitet i relacija
+
+DBMS -> database managament system
+
+Tri  vrste relacija:
+
+1-1   ->   proizvod - garantni list
+1-n  /  n-1   ->  proizvod - slika
+n-m   ->  košarica - proizvod
+
+CREATE DATABASE tvrtka;
+CREATE DATABASE IF NOT EXISTS tvrtka DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+
+USE tvrtka;
